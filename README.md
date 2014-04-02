@@ -13,4 +13,4 @@ Go at the root folder of the project and execute <code>npm install</code> that d
 
 ## Launch
 
-Execute <code>node start</code> and visite [http://localhost:3001/](http://localhost:3001/)
+Execute <code>node server.js</code> and visite [http://localhost:3001/](http://localhost:3001/)
