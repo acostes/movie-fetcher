@@ -1,0 +1,52 @@
+body {
+  padding-top: 50px;
+  background-color: #FFFFFF;
+}
+
+.template {
+    padding-top: 20px;
+}
+
+ul {
+    margin: 10px;
+}
+
+hr {
+    margin: 5px;
+}
+
+.dl-horizontal dd {
+    margin-left: 10px;
+}
+
+.dl-horizontal dt {
+    float: left;
+    width: 100px;
+    clear: left;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.movie-info {
+    padding: 10px 0px 20px 0px;
+}
+
+.filter {
+    margin: 20px 0px 15px 0px;
+    float: right;
+}
+
+.nav, .pagination, .carousel, .panel-title, .glyphicon-remove, a {
+    cursor: pointer;
+}
+
+.cover {
+    width: 115px;
+    height: 170px;
+}
+
+.panel {
+    height: 250px;
+}

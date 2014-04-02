@@ -1,0 +1,17 @@
+<div class="container">
+    <div ng-repeat="movie in movies" class="row-fluid">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="{{movie.ImdbLink}}" target="_blank">{{movie.MovieTitle}}</a></h3>
+                 </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <img ng-src="{{movie.MovieCover}}" alt="{{movie.MovieTitle}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+        </div>
+        <div class="col-md-2 form-inline filter">
+            <b>Quality</b>
+            <select id="quality" class="form-control input-sm" ng-model="quality" ng-options="quality.name for quality in qualities">
+            </select>
+        </div>
+        <div class="col-md-2 form-inline filter">
+            <b>Genre</b>
+            <select id="genre" class="form-control input-sm" ng-model="genre" ng-options="genre.name for genre in genres">
+            </select>
+        </div>
+        <div class="col-md-2 form-inline filter">
+            <b>Sort</b>
+            <select id="sort" class="form-control input-sm" ng-model="sort" ng-options="sort.name for sort in sorts">
+            </select>
+        </div>
+    </div>
+
+    <div ng-repeat="movie in movies.MovieList" class="row-fluid">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="#/movies/{{movie.MovieID}}">{{movie.MovieTitleClean}}</a></h3>
+                 </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a href="#/movies/{{movie.MovieID}}"><img ng-src="{{movie.CoverImage}}" alt="{{movie.MovieTitleClean}}" class="cover" /></a>
+                        </div>
+
+                        <div class="col-md-7">
+                            <dl class="dl-horizontal">
+                                <dt>Year</dt>
+                                <dd>{{movie.MovieYear}}</dd>
+                                <dt>Size</dt>
+                                <dd>{{movie.Size}}</dd>
+                                <dt>Rate</dt>
+                                <dd>{{movie.MovieRating | rate}}</dd>
+                                <dt>Genre</dt>
+                                <dd>{{movie.Genre}}</dd>
+                                <dt>Seeds</dt>
+                                <dd><span class="label label-success">{{movie.TorrentSeeds}}</span></dd>
+                                <dt>Peers</dt>
+                                <dd><span class="label label-danger">{{movie.TorrentPeers}}</span></dd>
+                            </dl>
+                            <a class="btn btn-primary btn-xs" href="#/movies/{{movie.MovieID}}">Details <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage" onclick="window.scrollTo(0,0)"></pagination>
+</div>

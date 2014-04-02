@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row movie-info">
+        <div class="col-lg-3">
+            <img ng-src="{{movie.LargeCover}}" alt="{{movie.MovieTitleClean}}" />
+        </div>
+
+        <div class="col-lg-5">
+            <h3>{{movie.MovieTitleClean}}</h3>
+            <dl class="dl-horizontal">
+                <dt>Year</dt>
+                <dd>{{movie.MovieYear}}</dd>
+                <dt>Genres</dt>
+                <dd>{{movie.Genre1}}, {{movie.Genre2}}</dd>
+                <dt>Size</dt>
+                <dd>{{movie.Size}}</dd>
+                <dt>Quality</dt>
+                <dd>{{movie.Quality}}</dd>
+                <dt>Resolution</dt>
+                <dd>{{movie.Resolution}}</dd>
+                <dt>FrameRate</dt>
+                <dd>{{movie.FrameRate}}</dd>
+                <dt>Language</dt>
+                <dd>{{movie.Language}}</dd>
+                <dt>Subtitles</dt>
+                <dd><a href="http://www.yifysubtitles.com/movie-imdb/{{movie.ImdbCode}}">Download</a></dd>
+                <dt>Rate</dt>
+                <dd>{{movie.MovieRating | rate}}</dd>
+                <dt>Seeds</dt>
+                <dd><span class="label label-success">{{movie.TorrentSeeds}}</span></dd>
+                <dt>Peers</dt>
+                <dd><span class="label label-danger">{{movie.TorrentPeers}}</span></dd>
+            </dl>
+
+            <p><a class="btn btn-success" href="https://www.youtube.com/embed/{{movie.YoutubeTrailerID}}?rel=0&border=0&autoplay=1">Trailer <span class="glyphicon glyphicon-film"></span></a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <h4>Screenshots</h4>
+            <p><img ng-src="{{movie.MediumScreenshot1}}" /></p>
+            <p><img ng-src="{{movie.MediumScreenshot2}}" /></p>
+            <p><img ng-src="{{movie.MediumScreenshot3}}" /></p>
+        </div>
+
+        <div class="col-lg-7">
+            <h4>Description</h4>
+            <p>{{movie.LongDescription}}</p>
+
+            <h4>Casting</h4>
+            <div ng-repeat="cast in movie.CastList">
+                <a href="{{cast.ActorImdbLink}}" target="_blank">{{cast.ActorName}}</a> ({{cast.CharacterName}})
+            </div>
+
+            <h4>Director</h4>
+            <div ng-repeat="director in movie.DirectorList">
+                <a href="{{director.DirectorImdbLink}}" target="_blank">{{director.DirectorName}}</a>
+            </div>
+        </div>
+    </div>
+</div>

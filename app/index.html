@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" ng-app="moviesApp">
+<head>
+    <meta charset="utf-8">
+    <title>Movie Fetcher</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/default.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/filters.js"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#" ng-click="search = ''">Movies Fetcher</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/movies/upcoming">Upcoming</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <form class="form-inline" role="form">
+                        <div class="form-group has-feedback">
+                            <input type="text" placeholder="Search" class="form-control" ng-model="search" ng-click="search=''">
+                            <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="search.length" ng-click="search = ''"></span>
+                        </div>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </div>
+        <div class="template">
+            <div ng-view></div>
+        </div>
+    </body>
+</body>
+</html>
