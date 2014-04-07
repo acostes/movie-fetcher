@@ -1,5 +1,9 @@
 <div class="container">
     <div class="row">
+        <div ng-if="message" class="alert alert-{{response}} alert-dismissable">
+            {{message}}
+        </div>
+
         <div class="col-md-5">
             <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
         </div>
@@ -25,7 +29,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><a href="#/movies/{{movie.MovieID}}">{{movie.MovieTitleClean}}</a></h3>
-                 </div>
+                </div>
 
                 <div class="panel-body">
                     <div class="row">
@@ -48,7 +52,15 @@
                                 <dt>Peers</dt>
                                 <dd><span class="label label-danger">{{movie.TorrentPeers}}</span></dd>
                             </dl>
-                            <a class="btn btn-primary btn-xs" href="#/movies/{{movie.MovieID}}">Details <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <button  class="btn btn-success btn-xs" ng-click="upload(movie.TorrentUrl)">Download <span class="glyphicon glyphicon-cloud-download"></span></button>
+                                </div>
+                                <div class="col-md-3">
+                                    <a class="btn btn-primary btn-xs" href="#/movies/{{movie.MovieID}}" role="button">Details <span class="glyphicon glyphicon-chevron-right"></span></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

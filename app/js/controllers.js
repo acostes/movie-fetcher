@@ -2,7 +2,24 @@
 
 var moviesControllers = angular.module('moviesControllers', []);
 
-moviesControllers.run(function($rootScope, $location) {
+moviesControllers.run(function($rootScope, $location, $timeout, $window, Movie) {
+    $rootScope.response = null;
+    $rootScope.upload = function(url) {
+        var torrentUrl = new Object();
+        torrentUrl.url = url;
+        Movie.upload(torrentUrl).success(function(data) {
+            if (data.download == 'local') {
+                $window.location.href = data.url;
+            }
+
+            $rootScope.message = data.message;
+            $rootScope.response = data.response;
+            $timeout(function() {
+                $rootScope.message = null;
+            }, 2000);
+        });
+    }
+
     $rootScope.$watch(
         'search',
         function() {

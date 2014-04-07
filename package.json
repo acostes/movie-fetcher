@@ -1,5 +1,5 @@
 {
-    "name": "MoviesFetcher",
+    "name": "MovieFetcher",
     "version": "0.0.1",
     "private": true,
     "engines": {
@@ -7,6 +7,7 @@
         "npm":  "1.1.x"
     },
     "dependencies": {
-        "express": "3.x"
+        "express": "3.x",
+        "nconf": "0.6.x"
     }
 }

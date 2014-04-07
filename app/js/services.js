@@ -33,5 +33,9 @@ moviesServices.factory('Movie', ['$http', '$timeout', function ($http, $timeout)
         upcoming : function() {
             return $http.get(API_UPCOMING, {cache: true});
         },
+
+        upload : function(url) {
+            return $http.post('/upload', url);
+        }
     };
 }]);
