@@ -24,7 +24,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#/movies/upcoming">Upcoming</a></li>
+                    <li ng-if="message" class="list-group-item list-group-item-{{response}}">{{message}}</li>
                 </ul>
+
                 <form class="navbar-form navbar-right" role="search">
                     <form class="form-inline" role="form">
                         <div class="form-group has-feedback">
