@@ -2,6 +2,7 @@
 <html lang="en" ng-app="moviesApp">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Movie Fetcher</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/default.css">
@@ -17,7 +18,7 @@
 
 <body>
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
               <a class="navbar-brand" href="#" ng-click="search = ''">Movies Fetcher</a>
             </div>
@@ -26,7 +27,6 @@
                     <li><a href="#/movies/upcoming">Upcoming</a></li>
                     <li ng-if="message" class="list-group-item list-group-item-{{response}}">{{message}}</li>
                 </ul>
-
                 <form class="navbar-form navbar-right" role="search">
                     <form class="form-inline" role="form">
                         <div class="form-group has-feedback">

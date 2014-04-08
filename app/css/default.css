@@ -21,7 +21,7 @@ hr {
 
 .dl-horizontal dt {
     float: left;
-    width: 100px;
+    width: 38%;
     clear: left;
     text-align: left;
     overflow: hidden;
@@ -42,11 +42,10 @@ hr {
     cursor: pointer;
 }
 
-.cover {
-    width: 115px;
-    height: 170px;
-}
-
 .panel {
     height: 250px;
+}
+
+.panel-body {
+    padding: 8px;
 }
