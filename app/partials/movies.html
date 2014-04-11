@@ -5,17 +5,17 @@
         </div>
         <div class="col-md-3 col-xs-4 form-inline filter">
             <b>Genre</b>
-            <select id="genre" class="form-control input-sm" ng-model="genre" ng-options="genre.name for genre in genres">
+            <select id="genre" class="form-control input-sm" ng-model="genre" ng-change="resetPage()" ng-init="genre=genres[0]" ng-options="genre for genre in genres">
             </select>
         </div>
         <div class="col-md-2 col-xs-4 form-inline filter">
             <b>Sort</b>
-            <select id="sort" class="form-control input-sm" ng-model="sort" ng-options="sort.name for sort in sorts">
+            <select id="sort" class="form-control input-sm" ng-model="sort" ng-change="resetPage()" ng-init="sort=sorts[0]" ng-options="sort for sort in sorts">
             </select>
         </div>
         <div class="col-md-2 col-xs-4 form-inline filter">
             <b>Quality</b>
-            <select id="quality" class="form-control input-sm" ng-model="quality" ng-options="quality.name for quality in qualities">
+            <select id="quality" class="form-control input-sm" ng-model="quality" ng-change="resetPage()" ng-init="quality=qualities[0]" ng-options="quality for quality in qualities">
             </select>
         </div>
     </div>

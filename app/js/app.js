@@ -13,7 +13,8 @@ moviesApp.config(['$routeProvider',
         $routeProvider.
             when('/movies', {
                 templateUrl: 'partials/movies.html',
-                controller : 'MoviesListCtrl'
+                controller : 'MoviesListCtrl',
+                reloadOnSearch: false,
             }).
             when('/movies/upcoming', {
                 templateUrl: 'partials/upcoming.html',

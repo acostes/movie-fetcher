@@ -30,70 +30,42 @@ moviesControllers.run(function($rootScope, $location, $timeout, $window, Movie) 
     );
 });
 
-moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', 'Movie', function($scope, $timeout, Movie) {
-    $scope.sorts = [
-        {name: 'Date'},
-        {name: 'Seeds'},
-        {name: 'Peers'},
-        {name: 'Size'},
-        {name: 'Alphabet'},
-        {name: 'Rating'},
-        {name: 'Downloaded'},
-        {name: 'Year'},
-    ];
-
-    $scope.genres = [
-        {name: 'All'},
-        {name: 'Action'},
-        {name: 'Sci-Fi'},
-        {name: 'Thriller'},
-        {name: 'Drama'},
-        {name: 'Horror'},
-        {name: 'Animation'},
-        {name: 'Comedy'},
-        {name: 'Documentary'},
-        {name: 'Family'},
-        {name: 'Romance'},
-        {name: 'Sport'},
-        {name: 'Adventure'},
-        {name: 'Biography'},
-        {name: 'Crime'},
-        {name: 'Fantasy'},
-        {name: 'History'},
-        {name: 'Music'},
-        {name: 'Mystery'},
-        {name: 'Western'},
-    ];
-
-    $scope.qualities = [
-        {name: '720p'},
-        {name: '1080p'},
-    ];
-
-    if ($scope.sort === undefined) {
-        $scope.sort = $scope.sorts[0];
-    }
-
-    if ($scope.genre === undefined) {
-        $scope.genre = $scope.genres[0];
-    }
-
-    if ($scope.quality === undefined) {
-        $scope.quality = $scope.qualities[0];
-    }
-
-    if ($scope.currentPage === undefined) {
-        $scope.currentPage = 1;
-    }
+moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routeParams', '$location', 'Movie', function($scope, $timeout, $routeParams, $location, Movie) {
+    $scope.sorts = Movie.getSorts();
+    $scope.genres = Movie.getGenres();
+    $scope.qualities = Movie.getQualities();
 
     $scope.maxSize = 5;
     $scope.itemsPerPage = 20;
 
+    if ($routeParams.page !== undefined) {
+        $timeout(function() {
+            $scope.currentPage = parseInt($routeParams.page);
+        }, 1);
+    }
+
+    $scope.resetPage = function() {
+        $scope.currentPage = 1;
+    }
+
     $scope.$watch(
         '[sort, quality, genre, currentPage, search]',
         function(newValue, oldValue) {
-            if (oldValue[0].name !== $scope.sort.name || oldValue[1].name !== $scope.quality.name || oldValue[2].name !== $scope.genre.name) {
-                $scope.currentPage = 1;
+            var timeout = 0;
+            if ($routeParams.sort !== undefined && oldValue[0] === newValue[0]) {
+                $scope.sort = $routeParams.sort;
+            }
+
+            if ($routeParams.quality !== undefined && oldValue[1] === newValue[1]) {
+                $scope.quality = $routeParams.quality;
+            }
+
+            if ($routeParams.genre !== undefined && oldValue[2] === newValue[2]) {
+                $scope.genre = $routeParams.genre;
+            }
+
+            if (oldValue[4] !== newValue[4]) {
+                timeout = 500;
             }
 
             $timeout(function() {
@@ -104,7 +76,20 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', 'Movie', f
                         $scope.movies = data;
                     });
                 }
-            }, 500);
+            }, timeout);
+
+            if ($scope.currentPage !== undefined) {
+                var query       = new Object();
+                query.page      = $scope.currentPage;
+                query.sort      = $scope.sort;
+                query.quality   = $scope.quality;
+                query.genre     = $scope.genre;
+                if ($scope.search !== undefined) {
+                    query.search = $scope.search;
+                }
+
+                $location.path('/movies').search(query);
+            }
         }, true
     );
 }]);
