@@ -1,50 +1,44 @@
 <div class="container">
+    <h3>{{movie.MovieTitleClean}}</h3>
     <div class="row movie-info">
-        <div class="col-lg-3">
-            <img ng-src="{{movie.LargeCover}}" alt="{{movie.MovieTitleClean}}" />
+        <div class="col-md-4 col-sm-6 col-xs-5">
+            <img class="hidden-xs" ng-src="{{movie.LargeCover}}" alt="{{movie.MovieTitleClean}}" />
+            <img class="visible-xs" ng-src="{{movie.MediumCover}}" alt="{{movie.MovieTitleClean}}" />
         </div>
 
-        <div class="col-lg-5">
-            <h3>{{movie.MovieTitleClean}}</h3>
+        <div class="col-md-6 col-sm-5 col-xs-7">
             <dl class="dl-horizontal">
-                <dt>Year</dt>
+                <dt class="hidden-xs">Year</dt>
                 <dd>{{movie.MovieYear}}</dd>
-                <dt>Genres</dt>
+                <dt class="hidden-xs">Genres</dt>
                 <dd>{{movie.Genre1}}, {{movie.Genre2}}</dd>
-                <dt>Size</dt>
+                <dt class="hidden-xs">Size</dt>
                 <dd>{{movie.Size}}</dd>
-                <dt>Quality</dt>
+                <dt class="hidden-xs">Quality</dt>
                 <dd>{{movie.Quality}}</dd>
-                <dt>Resolution</dt>
+                <dt class="hidden-xs">Resolution</dt>
                 <dd>{{movie.Resolution}}</dd>
-                <dt>FrameRate</dt>
+                <dt class="hidden-xs">FrameRate</dt>
                 <dd>{{movie.FrameRate}}</dd>
-                <dt>Language</dt>
+                <dt class="hidden-xs">Language</dt>
                 <dd>{{movie.Language}}</dd>
-                <dt>Subtitles</dt>
+                <dt class="hidden-xs">Subtitles</dt>
                 <dd><a href="http://www.yifysubtitles.com/movie-imdb/{{movie.ImdbCode}}">Download</a></dd>
-                <dt>Rate</dt>
+                <dt class="hidden-xs">Rate</dt>
                 <dd>{{movie.MovieRating | rate}}</dd>
-                <dt>Seeds</dt>
+                <dt class="hidden-xs">Seeds</dt>
                 <dd><span class="label label-success">{{movie.TorrentSeeds}}</span></dd>
-                <dt>Peers</dt>
+                <dt class="hidden-xs">Peers</dt>
                 <dd><span class="label label-danger">{{movie.TorrentPeers}}</span></dd>
             </dl>
 
-            <p><a class="btn btn-primary" href="https://www.youtube.com/embed/{{movie.YoutubeTrailerID}}?rel=0&border=0&autoplay=1">Trailer <span class="glyphicon glyphicon-film"></span></a></p>
+            <p><a class="btn btn-primary" href="https://www.youtube.com/embed/{{movie.YoutubeTrailerID}}?rel=0&border=0&autoplay=1">Trailer <span class="glyphicon glyphicon-film"></span></p></a>
             <button  class="btn btn-success" ng-click="upload(movie.TorrentUrl)">Download <span class="glyphicon glyphicon-cloud-download"></span></button>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-5">
-            <h4>Screenshots</h4>
-            <p><img ng-src="{{movie.MediumScreenshot1}}" /></p>
-            <p><img ng-src="{{movie.MediumScreenshot2}}" /></p>
-            <p><img ng-src="{{movie.MediumScreenshot3}}" /></p>
-        </div>
-
-        <div class="col-lg-7">
+        <div class="col-md-5">
             <h4>Description</h4>
             <p>{{movie.LongDescription}}</p>
 
@@ -57,6 +51,13 @@
             <div ng-repeat="director in movie.DirectorList">
                 <a href="{{director.DirectorImdbLink}}" target="_blank">{{director.DirectorName}}</a>
             </div>
+        </div>
+
+        <div class="col-md-7 hidden-xs">
+            <h4>Screenshots</h4>
+            <p><img ng-src="{{movie.MediumScreenshot1}}" /></p>
+            <p><img ng-src="{{movie.MediumScreenshot2}}" /></p>
+            <p><img ng-src="{{movie.MediumScreenshot3}}" /></p>
         </div>
     </div>
 </div>
