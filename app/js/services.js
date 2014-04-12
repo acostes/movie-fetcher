@@ -59,7 +59,7 @@ moviesServices.factory('Movie', ['$http', function ($http) {
                 query += '&keywords=' + keyword;
             }
 
-            if (genre !== 'All') {
+            if (genre !== undefined) {
                 query += '&genre=' + genre;
             }
             return $http.get(API_LIST + query, {cache: true});

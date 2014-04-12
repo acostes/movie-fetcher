@@ -78,14 +78,20 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
                 }
             }, timeout);
 
-            if ($scope.currentPage !== undefined) {
+            if ($scope.currentPage !== undefined || ($scope.search !== undefined && $scope.search !== '')) {
                 var query       = new Object();
-                query.page      = $scope.currentPage;
                 query.sort      = $scope.sort;
                 query.quality   = $scope.quality;
-                query.genre     = $scope.genre;
                 if ($scope.search !== undefined) {
                     query.search = $scope.search;
+                }
+
+                if ($scope.genre !== 'All') {
+                    query.genre     = $scope.genre;
+                }
+
+                if ($scope.currentPage !== undefined) {
+                    query.page = $scope.currentPage;
                 }
 
                 $location.path('/movies').search(query);

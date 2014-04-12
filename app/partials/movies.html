@@ -1,60 +1,73 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5 hidden-xs">
-            <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="true" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
-        </div>
-        <div class="col-md-3 col-xs-4 form-inline filter">
-            <b>Genre</b>
-            <select id="genre" class="form-control input-sm" ng-model="genre" ng-change="resetPage()" ng-init="genre=genres[0]" ng-options="genre for genre in genres">
-            </select>
-        </div>
-        <div class="col-md-2 col-xs-4 form-inline filter">
-            <b>Sort</b>
-            <select id="sort" class="form-control input-sm" ng-model="sort" ng-change="resetPage()" ng-init="sort=sorts[0]" ng-options="sort for sort in sorts">
-            </select>
-        </div>
-        <div class="col-md-2 col-xs-4 form-inline filter">
-            <b>Quality</b>
-            <select id="quality" class="form-control input-sm" ng-model="quality" ng-change="resetPage()" ng-init="quality=qualities[0]" ng-options="quality for quality in qualities">
-            </select>
-        </div>
-    </div>
+<div class="container-fluid" ng-show="movies.status">
+    <div class="alert alert-warning">{{movies.error}}</div>
+</div>
 
-    <div ng-repeat="movie in movies.MovieList" class="row-fluid">
-        <div class="col-lg-3 col-md-4 col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><a href="#/movies/{{movie.MovieID}}">{{movie.MovieTitleClean}}</a> <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="upload(movie.TorrentUrl)"><span class="glyphicon glyphicon-cloud-download"></span></button></span></h3>
+<div class="result" ng-hide="movies.status">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pull-left col-md-8 filter">
+                <div class="col-md-4 col-md-4 col-xs-4 form-inline">
+                    <b>Sort</b>
+                    <select id="sort" class="form-control input-sm" ng-model="sort" ng-change="resetPage()" ng-init="sort=sorts[0]" ng-options="sort for sort in sorts">
+                    </select>
+                </div>
+                <div class="col-md-4 col-md-4 col-xs-4 form-inline">
+                    <b>Genre</b>
+                    <select id="genre" class="form-control input-sm" ng-model="genre" ng-change="resetPage()" ng-init="genre=genres[0]" ng-options="genre for genre in genres">
+                    </select>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <a href="#/movies/{{movie.MovieID}}"><img ng-src="{{movie.CoverImage}}" alt="{{movie.MovieTitleClean}}" class="cover" /></a>
-                        </div>
+                <div class="col-md-4 col-md-4 col-xs-4 form-inline">
+                    <b>Quality</b>
+                    <select id="quality" class="form-control input-sm" ng-model="quality" ng-change="resetPage()" ng-init="quality=qualities[0]" ng-options="quality for quality in qualities">
+                    </select>
+                </div>
+            </div>
 
-                        <div class="col-md-6 col-xs-6">
-                            <dl class="dl-horizontal">
-                                <dt class="hidden-xs">Year</dt>
-                                <dd>{{movie.MovieYear}}</dd>
-                                <dt class="hidden-xs">Size</dt>
-                                <dd>{{movie.Size}}</dd>
-                                <dt class="hidden-xs">Rate</dt>
-                                <dd>{{movie.MovieRating | rate}}</dd>
-                                <dt class="hidden-xs">Genre</dt>
-                                <dd>{{movie.Genre}}</dd>
-                                <dt class="hidden-xs">Seeds</dt>
-                                <dd><span class="label label-success">{{movie.TorrentSeeds}}</span></dd>
-                                <dt class="hidden-xs">Peers</dt>
-                                <dd><span class="label label-danger">{{movie.TorrentPeers}}</span></dd>
-                            </dl>
+            <div class="col-md-2 hidden-xs pull-right">
+                <pager total-items="totalItems" previous-text="«" align="true" next-text="»" page="currentPage"></pager>
+            </div>
+        </div>
 
-                            <a class="btn btn-primary btn-xs" href="#/movies/{{movie.MovieID}}" role="button">Details <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <div ng-repeat="movie in movies.MovieList" class="row-fluid">
+            <div class="col-lg-3 col-md-4 col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="#/movies/{{movie.MovieID}}">{{movie.MovieTitleClean}}</a> <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="upload(movie.TorrentUrl)"><span class="glyphicon glyphicon-cloud-download"></span></button></span></h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <a href="#/movies/{{movie.MovieID}}"><img ng-src="{{movie.CoverImage}}" alt="{{movie.MovieTitleClean}}" class="cover" /></a>
+                            </div>
+
+                            <div class="col-md-6 col-xs-6">
+                                <dl class="dl-horizontal">
+                                    <dt class="hidden-xs">Year</dt>
+                                    <dd>{{movie.MovieYear}}</dd>
+                                    <dt class="hidden-xs">Size</dt>
+                                    <dd>{{movie.Size}}</dd>
+                                    <dt class="hidden-xs">Rate</dt>
+                                    <dd>{{movie.MovieRating | rate}}</dd>
+                                    <dt class="hidden-xs">Genre</dt>
+                                    <dd>{{movie.Genre}}</dd>
+                                    <dt class="hidden-xs">Seeds</dt>
+                                    <dd><span class="label label-success">{{movie.TorrentSeeds}}</span></dd>
+                                    <dt class="hidden-xs">Peers</dt>
+                                    <dd><span class="label label-danger">{{movie.TorrentPeers}}</span></dd>
+                                </dl>
+
+                                <a class="btn btn-primary btn-xs" href="#/movies/{{movie.MovieID}}" role="button">Details <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row-fluid col-md-12">
+            <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="true" num-pages="numPages" items-per-page="itemsPerPage" onclick="window.scrollTo(0,0)"></pagination>
+        </div>
     </div>
-    <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="true" num-pages="numPages" items-per-page="itemsPerPage" onclick="window.scrollTo(0,0)"></pagination>
 </div>
