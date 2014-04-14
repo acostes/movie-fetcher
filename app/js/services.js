@@ -51,7 +51,7 @@ moviesServices.factory('Movie', ['$http', function ($http) {
                 return null;
             }
 
-            if (page !== undefined) {
+            if (page !== undefined && page !== 1) {
                 query += '&set=' + page;
             }
 
@@ -59,7 +59,7 @@ moviesServices.factory('Movie', ['$http', function ($http) {
                 query += '&keywords=' + keyword;
             }
 
-            if (genre !== undefined) {
+            if (genre !== undefined && genre !== 'All') {
                 query += '&genre=' + genre;
             }
             return $http.get(API_LIST + query, {cache: true});

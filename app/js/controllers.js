@@ -39,7 +39,6 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
     $scope.sorts = Movie.getSorts();
     $scope.genres = Movie.getGenres();
     $scope.qualities = Movie.getQualities();
-
     $scope.maxSize = 5;
     $scope.itemsPerPage = 20;
 
@@ -48,9 +47,11 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
             $scope.currentPage = parseInt($routeParams.page);
         }, 1);
     }
+
     if ($routeParams.search !== undefined ) {
         $scope.search = $routeParams.search;
     }
+
     $scope.resetPage = function() {
         $scope.currentPage = 1;
     }
@@ -82,7 +83,7 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
             }
 
             $timeout(function() {
-                var result = Movie.list($scope.sort, $scope.quality, genre, $scope.currentPage, $scope.search);
+                var result = Movie.list($scope.sort, $scope.quality, $scope.genre, $scope.currentPage, $scope.search);
                 if (result) {
                     result.success(function(data) {
                         $scope.totalItems = data.MovieCount;
@@ -101,10 +102,10 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
                 }
 
                 if (genre !== undefined) {
-                    query.genre = genre;
+                    query.genre = $scope.genre;
                 }
 
-                if ($scope.currentPage !== undefined) {
+                if ($scope.currentPage !== undefined && $scope.currentPage !== 1) {
                     query.page = $scope.currentPage;
                 }
 
