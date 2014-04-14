@@ -20,6 +20,7 @@ app.configure(function(){
 
 app.post('/upload', function(req, res) {
     var fileName = path.basename(req.body.url);
+    var movieName = req.body.name;
     var targetPath = config.get('upload_path') + '/' + fileName;
 
     if (config.get('download') == 'server') {
@@ -28,7 +29,7 @@ app.post('/upload', function(req, res) {
                 var file = fs.createWriteStream(targetPath);
                 var request = http.get(req.body.url, function(response) {
                     response.pipe(file);
-                    res.json({'response': 'success', 'message': 'Download ' + fileName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
+                    res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
                 }).on('error', function(e) {
                     response = 'danger';
                     res.json({'response': 'danger', 'message': 'An error occure during downloading ' + fileName, 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
@@ -38,7 +39,7 @@ app.post('/upload', function(req, res) {
             }
         });
     } else {
-        res.json({'response': 'success', 'message': 'Download ' + fileName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
+        res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
     }
 });
 

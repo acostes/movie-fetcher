@@ -4,9 +4,10 @@ var moviesControllers = angular.module('moviesControllers', []);
 
 moviesControllers.run(['$rootScope', '$location', '$timeout', '$window', 'Movie', function($rootScope, $location, $timeout, $window, Movie) {
     $rootScope.response = null;
-    $rootScope.upload = function(url) {
+    $rootScope.upload = function(url, name) {
         var torrentUrl = new Object();
         torrentUrl.url = url;
+        torrentUrl.name = name;
         Movie.upload(torrentUrl).success(function(data) {
             if (data.download == 'local') {
                 $window.location.href = data.url;

@@ -29,14 +29,16 @@
                     <span class="icon-bar"></span>
                 </button>
 
+                <div ng-if="message" class="visible-xs alert alert-{{response}}">{{message}}</div>
                 <a class="navbar-brand" href="#" ng-click="search = ''">Movies Fetcher</a>
-                <li ng-if="message" class="list-group-item list-group-item-{{response}}">{{message}}</li>
             </div>
 
             <div class="navbar-collapse collapse" id="menu-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#/movies/upcoming">Upcoming</a></li>
+                    <li ng-if="message" class="list-group-item list-group-item-{{response}}">{{message}}</li>
                 </ul>
+
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group has-feedback">
                         <input type="text" placeholder="Search" class="form-control" ng-model="search" ng-click="search=''">
@@ -44,6 +46,7 @@
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 
