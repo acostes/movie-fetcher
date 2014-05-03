@@ -1,6 +1,5 @@
 body {
   padding-top: 50px;
-  background-color: #FFFFFF;
 }
 
 .template {
@@ -47,4 +46,12 @@ hr {
 
 .panel-body {
     padding: 8px;
+}
+
+.search {
+    padding-top: 5px;
+}
+
+.message {
+    text-align: center;
 }
