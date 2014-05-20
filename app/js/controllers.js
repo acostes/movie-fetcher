@@ -28,7 +28,7 @@ moviesControllers.run(['$rootScope', '$location', '$timeout', '$window', 'Movie'
     $rootScope.$watch(
         'search',
         function() {
-            if ($rootScope.search !== undefined || $rootScope.search !== '') {
+            if ($rootScope.search !== undefined && $rootScope.search !== '') {
                 delete $location.$$search.search;
                 $location.path('/movies').search($location.$$search);
             }
