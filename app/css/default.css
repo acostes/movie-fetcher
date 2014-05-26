@@ -14,11 +14,11 @@ hr {
     margin: 5px;
 }
 
-.dl-horizontal dd {
+.dl-horizontal-list dd {
     margin-left: 10px;
 }
 
-.dl-horizontal dt {
+.dl-horizontal-list dt {
     float: left;
     width: 38%;
     clear: left;
@@ -40,7 +40,7 @@ hr {
     cursor: pointer;
 }
 
-.panel {
+.panel-movies {
     height: 250px;
 }
 
@@ -54,4 +54,18 @@ hr {
 
 .message {
     text-align: center;
+}
+
+.cover {
+    width: 120px;
+    height: 177px;
+}
+
+.cover-big {
+    width: 250px;
+    height: 369px;
+}
+
+.header {
+    margin-bottom: 50px;
 }

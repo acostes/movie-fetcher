@@ -1,6 +1,36 @@
 "use strict";
 
 var moviesServices = angular.module('moviesServices', []);
+var tvShowsServices = angular.module('tvShowsServices', []);
+
+tvShowsServices.factory('TvShows', ['$http', function ($http) {
+    var API_LIST            = 'http://download.hirua.net/api/shows';
+    var API_DETAIL          = 'http://download.hirua.net/api/show/';
+    var API_LAST_UPDATED    = 'http://download.hirua.net/api/shows/last_updated';
+    var API_SEARCH          = 'http://download.hirua.net/api/shows/search/';
+
+    return {
+        list : function(page) {
+            var query = '';
+            if (page !== undefined && page !== 1) {
+                query += '/' + page;
+            }
+            return $http.get(API_LIST + query, {cache: true});
+        },
+
+        get : function(id) {
+            return $http.get(API_DETAIL + id, {cache: true});
+        },
+
+        lastUpdated : function(page) {
+            return $http.get(API_LAST_UPDATED, {cache: true});
+        },
+
+        search : function(keyword) {
+            return $http.get(API_SEARCH + keyword, {cache: true});
+        }
+    };
+}]);
 
 moviesServices.factory('Movie', ['$http', function ($http) {
     var API_LIST        = 'http://yts.re/api/list.json';

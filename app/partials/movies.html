@@ -30,7 +30,7 @@
 
     <div ng-repeat="movie in movies.MovieList" class="row-fluid" ng-hide="movies.status">
         <div class="col-lg-3 col-md-4 col-sm-5">
-            <div class="panel panel-default">
+            <div class="panel panel-movies panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><a href="#/movies/{{movie.MovieID}}">{{movie.MovieTitleClean}}</a> <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="upload(movie.TorrentUrl, movie.MovieTitleClean)"><span class="glyphicon glyphicon-cloud-download"></span></button></span></h3>
                 </div>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="col-md-6 col-xs-6">
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal-list">
                                 <dt class="hidden-xs">Year</dt>
                                 <dd>{{movie.MovieYear}}</dd>
                                 <dt class="hidden-xs">Size</dt>

@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="header">
+        <img class="hidden-xs center-block img-rounded" ng-src="{{tvshow.images.banner}}" alt="{{tvshow.title}}" />
+        <h3 class="visible-xs">{{tvshow.title}}</h3>
+    </div>
+
+    <div class="row movie-info">
+        <div class="col-md-4 col-sm-6 col-xs-5 hidden-xs">
+            <img class="hidden-xs cover-big" ng-src="{{tvshow.images.poster}}" alt="{{tvshow.title}}" />
+        </div>
+
+        <div class="col-md-6 col-sm-5 col-xs-7">
+            <dl class="dl-horizontal-list">
+                <dt class="hidden-xs">Year</dt>
+                <dd>{{tvshow.year}}</dd>
+                <dt class="hidden-xs">Genres</dt>
+                <dd><span ng-repeat="genre in tvshow.genres">{{genre}}, </span></dd>
+                <dt class="hidden-xs">Country</dt>
+                <dd>{{tvshow.country}}</dd>
+                <dt class="hidden-xs">Network</dt>
+                <dd>{{tvshow.network}}</dd>
+                <dt class="hidden-xs">Air Day</dt>
+                <dd>{{tvshow.air_day}}</dd>
+                <dt class="hidden-xs">Air Time</dt>
+                <dd>{{tvshow.air_time}}</dd>
+                <dt class="hidden-xs">Status</dt>
+                <dd>{{tvshow.status}}</dd>
+                <dt class="hidden-xs">Num Seasons</dt>
+                <dd>{{tvshow.num_seasons}}</dd>
+                <dt class="hidden-xs">Num Episodes</dt>
+                <dd>{{tvshow.episodes.length}}</dd>
+            </dl>
+
+            <blockquote>
+                {{tvshow.synopsis}}
+            </blockquote>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Episodes</h4>
+            <div ng-repeat="episode in tvshow.episodes">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>{{episode.title}} <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="upload(episode.torrents.url, movie.MovieTitleClean)"><span class="glyphicon glyphicon-cloud-download"></span>Download</button></span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            <dt>Season</dt>
+                            <dd>{{episode.season}}</dd>
+                            <dt>Episode</dt>
+                            <dd>{{episode.episode}}</dd>
+                            <dt>Overview</dt>
+                            <dd>{{episode.overview}}</dd>
+                            <dt>First Aired</dt>
+                            <dd>{{episode.first_aired * 1000 | date:'medium'}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
