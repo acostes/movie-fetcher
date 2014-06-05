@@ -1,7 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
-var http = require('http');
+var https = require('https');
 var config = require('nconf');
 var app = express();
 
@@ -27,7 +27,7 @@ app.post('/upload', function(req, res) {
         fs.exists(config.get('upload_path'), function(exists) {
             if (exists) {
                 var file = fs.createWriteStream(targetPath);
-                var request = http.get(req.body.url, function(response) {
+                var request = https.get(req.body.url, function(response) {
                     response.pipe(file);
                     res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
                 }).on('error', function(e) {
