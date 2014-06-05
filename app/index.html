@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Movie Fetcher</title>
+    <title>Downloader</title>
     <link rel="stylesheet" href="//bootswatch.com/cosmo/bootstrap.min.css">
     <link rel="stylesheet" href="css/default.css">
 
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js"></script>
-    <script src="https://raw.githubusercontent.com/BinaryMuse/ngInfiniteScroll/1.0.0/build/ng-infinite-scroll.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
+    <script src="lib/ng-infinite-scroll.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
@@ -30,12 +30,15 @@
                 </button>
 
                 <div ng-if="message" class="visible-xs alert alert-{{response}}">{{message}}</div>
-                <a class="navbar-brand" href="#" ng-click="search = ''">Movies Fetcher</a>
+                <a class="navbar-brand" href="#" ng-click="search = ''">Downloader</a>
             </div>
 
             <div class="navbar-collapse collapse" id="menu-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/movies/upcoming">Upcoming</a></li>
+                    <li><a href="#/movies">Movies</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#/tvshows">TV Shows</a></li>
                 </ul>
 
                 <form class="navbar-form navbar-right" role="search">

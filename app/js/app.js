@@ -6,7 +6,8 @@ var moviesApp = angular.module('moviesApp', [
     'moviesControllers',
     'moviesFilters',
     'moviesServices',
-    'tvShowsServices'
+    'tvShowsServices',
+    'infinite-scroll',
 ]);
 
 moviesApp.config(['$routeProvider',

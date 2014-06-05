@@ -43,7 +43,13 @@
             <div ng-repeat="episode in tvshow.episodes">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{episode.title}} <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="upload(episode.torrents.url, movie.MovieTitleClean)"><span class="glyphicon glyphicon-cloud-download"></span>Download</button></span></h4>
+                        <h4>{{episode.title}}
+
+                        <div ng-repeat="torrent in episode.torrents" class="pull-right">
+                            <button class="btn btn-success btn-xs" ng-click="upload(torrent.url, episode.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
+                        </div>
+
+                        </h4>
                     </div>
                     <div class="panel-body">
                         <dl class="dl-horizontal">

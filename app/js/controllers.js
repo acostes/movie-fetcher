@@ -2,26 +2,24 @@
 
 var moviesControllers = angular.module('moviesControllers', []);
 
-moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', function($scope, TvShows) {
-    $scope.$watch('search', function() {
-        if ($scope.search === undefined || $scope.search === '') {
-            var result = TvShows.list();
-            if (result) {
-                result.success(function(data) {
-                    $scope.tvshows = data;
-                    $scope.totalItems = data.length;
-                });
-            }
-        } else {
+moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPager', function($scope, TvShows, TvShowsPager) {
+    $scope.$watch('search', function(oldValue, newValue) {
+        if (($scope.search === undefined || $scope.search === '') && oldValue === '' && newValue !== undefined) {
+            $scope.pager = new TvShowsPager();
+            $scope.pager.nextPage();
+        }
+
+        if ($scope.search !== undefined && $scope.search !== '') {
             var result = TvShows.search($scope.search);
             if (result) {
                 result.success(function(data) {
-                    $scope.tvshows = data;
-                    $scope.totalItems = data.length;
+                    $scope.pager = new Object();
+                    $scope.pager.items = data;
                 });
             }
         }
     });
+    $scope.pager = new TvShowsPager();
 }]);
 
 moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeParams', function ($scope, TvShows, $routeParams) {
@@ -58,8 +56,9 @@ moviesControllers.run(['$rootScope', '$location', '$timeout', '$window', 'Movie'
         'search',
         function() {
             if ($rootScope.search !== undefined && $rootScope.search !== '') {
+                var path = $location.$$path.split('/');
                 delete $location.$$search.search;
-                $location.path($location.$$path).search($location.$$search);
+                $location.path(path[1]).search($location.$$search);
             }
         }
     );

@@ -3,7 +3,40 @@
 var moviesServices = angular.module('moviesServices', []);
 var tvShowsServices = angular.module('tvShowsServices', []);
 
-tvShowsServices.factory('TvShows', ['$http', function ($http) {
+tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', function(TvShows, $http, $timeout) {
+    var TvShowsPager = function() {
+        this.items = [];
+        this.busy = false;
+        this.after = 1;
+    };
+
+    TvShowsPager.prototype.nextPage = function() {
+        if (this.busy) return;
+        this.busy = true;
+        var timeout = 1000;
+        if (this.after == 1) {
+            timeout = 0;
+        }
+
+        $timeout(function() {
+            TvShows.list(this.after).success(function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    this.items.push(data[i]);
+                }
+
+                this.after++;
+                this.busy = false;
+                if (data.length < 1) {
+                    this.busy = true;
+                }
+
+            }.bind(this));
+        }.bind(this), timeout);
+    };
+    return TvShowsPager;
+}]);
+
+tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     var API_LIST            = 'http://download.hirua.net/api/shows';
     var API_DETAIL          = 'http://download.hirua.net/api/show/';
     var API_LAST_UPDATED    = 'http://download.hirua.net/api/shows/last_updated';
