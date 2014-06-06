@@ -66,9 +66,9 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
 }]);
 
 moviesServices.factory('Movie', ['$http', function ($http) {
-    var API_LIST        = 'http://yts.re/api/list.json';
-    var API_DETAIL      = 'http://yts.re/api/movie.json';
-    var API_UPCOMING    = 'http://yts.re/api/upcoming.json';
+    var API_LIST        = 'https://yts.re/api/list.json';
+    var API_DETAIL      = 'https://yts.re/api/movie.json';
+    var API_UPCOMING    = 'https://yts.re/api/upcoming.json';
     var genres = [
         'All',
         'Action',
