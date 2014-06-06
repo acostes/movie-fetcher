@@ -30,13 +30,15 @@ moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeP
         $('#showsTab a:last').tab('show')
     })
     TvShows.get($scope.tvshowId).success(function(data) {
-        data.episodes.forEach(function(episode) {
-            if (!(episode.season in $scope.episodes)) {
-                $scope.episodes[episode.season] = new Object();
-            }
-            $scope.episodes[episode.season][episode.tvdb_id] = episode;
+        if (data.episodes !== undefined) {
+            data.episodes.forEach(function(episode) {
+                if (!(episode.season in $scope.episodes)) {
+                    $scope.episodes[episode.season] = new Object();
+                }
+                $scope.episodes[episode.season][episode.tvdb_id] = episode;
 
-        });
+            });
+        }
         $scope.tvshow = data;
     });
 }]);
