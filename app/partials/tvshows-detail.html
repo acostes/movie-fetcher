@@ -40,32 +40,41 @@
     <div class="row">
         <div class="col-md-12">
             <h4>Episodes</h4>
-            <div ng-repeat="episode in tvshow.episodes">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>{{episode.title}}
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="showsTab">
+                <li ng-class="{active:$first}" ng-repeat="(key, episode) in episodes"><a href="{{url}}#{{key}}" data-toggle="tab">Season {{key}}</a></li>
+            </ul>
 
-                        <div ng-repeat="torrent in episode.torrents" class="pull-right">
-                            <button class="btn btn-success btn-xs" ng-click="upload(torrent.url, episode.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div ng-repeat="(key, episode) in episodes" ng-class="{active:$first}" class="tab-pane" id="{{key}}">
+                    <div ng-repeat="show in episode">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>{{show.title}}
+
+                                <div ng-repeat="torrent in show.torrents" class="pull-right">
+                                    <button class="btn btn-success btn-xs" ng-click="upload(torrent.url, show.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
+                                </div>
+
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <dl class="dl-horizontal">
+                                    <dt>Season</dt>
+                                    <dd>{{show.season}}</dd>
+                                    <dt>Episode</dt>
+                                    <dd>{{show.episode}}</dd>
+                                    <dt>Overview</dt>
+                                    <dd>{{show.overview}}</dd>
+                                    <dt>First Aired</dt>
+                                    <dd>{{show.first_aired * 1000 | date:'medium'}}</dd>
+                                </dl>
+                            </div>
                         </div>
-
-                        </h4>
-                    </div>
-                    <div class="panel-body">
-                        <dl class="dl-horizontal">
-                            <dt>Season</dt>
-                            <dd>{{episode.season}}</dd>
-                            <dt>Episode</dt>
-                            <dd>{{episode.episode}}</dd>
-                            <dt>Overview</dt>
-                            <dd>{{episode.overview}}</dd>
-                            <dt>First Aired</dt>
-                            <dd>{{episode.first_aired * 1000 | date:'medium'}}</dd>
-                        </dl>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

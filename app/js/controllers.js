@@ -22,9 +22,21 @@ moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPa
     $scope.pager = new TvShowsPager();
 }]);
 
-moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeParams', function ($scope, TvShows, $routeParams) {
+moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeParams', '$location', function ($scope, TvShows, $routeParams, $location) {
     $scope.tvshowId = $routeParams.tvshowId;
+    $scope.episodes = new Object();
+    $scope.url = $location.url();
+    $(function () {
+        $('#showsTab a:last').tab('show')
+    })
     TvShows.get($scope.tvshowId).success(function(data) {
+        data.episodes.forEach(function(episode) {
+            if (!(episode.season in $scope.episodes)) {
+                $scope.episodes[episode.season] = new Object();
+            }
+            $scope.episodes[episode.season][episode.tvdb_id] = episode;
+
+        });
         $scope.tvshow = data;
     });
 }]);
