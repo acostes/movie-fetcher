@@ -1,7 +1,9 @@
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
+var http = require('http');
 var https = require('https');
+var url = require('url');
 var config = require('nconf');
 var app = express();
 
@@ -19,6 +21,7 @@ app.configure(function(){
 });
 
 app.post('/upload', function(req, res) {
+    var protocol = url.parse(req.body.url).protocol.replace(':', '');
     var fileName = path.basename(req.body.url);
     var movieName = req.body.name;
     var targetPath = config.get('upload_path') + '/' + fileName;
@@ -27,7 +30,7 @@ app.post('/upload', function(req, res) {
         fs.exists(config.get('upload_path'), function(exists) {
             if (exists) {
                 var file = fs.createWriteStream(targetPath);
-                var request = https.get(req.body.url, function(response) {
+                var request = eval(protocol).get(req.body.url, function(response) {
                     response.pipe(file);
                     res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
                 }).on('error', function(e) {

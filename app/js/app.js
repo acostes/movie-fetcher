@@ -5,12 +5,24 @@ var moviesApp = angular.module('moviesApp', [
     'ui.bootstrap',
     'moviesControllers',
     'moviesFilters',
-    'moviesServices'
+    'moviesServices',
+    'tvShowsServices',
+    'infinite-scroll',
 ]);
 
 moviesApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
+            when('/tvshows', {
+                templateUrl: 'partials/tvshows.html',
+                controller : 'TvShowsListCtrl',
+                reloadOnSearch: false,
+            }).
+            when('/tvshows/:tvshowId', {
+                templateUrl: 'partials/tvshows-detail.html',
+                controller : 'TvShowsDetailCtrl',
+                reloadOnSearch: false,
+            }).
             when('/movies', {
                 templateUrl: 'partials/movies.html',
                 controller : 'MoviesListCtrl',

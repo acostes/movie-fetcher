@@ -2,6 +2,33 @@
 
 var moviesControllers = angular.module('moviesControllers', []);
 
+moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPager', function($scope, TvShows, TvShowsPager) {
+    $scope.$watch('search', function(oldValue, newValue) {
+        if (($scope.search === undefined || $scope.search === '') && oldValue === '' && newValue !== undefined) {
+            $scope.pager = new TvShowsPager();
+            $scope.pager.nextPage();
+        }
+
+        if ($scope.search !== undefined && $scope.search !== '') {
+            var result = TvShows.search($scope.search);
+            if (result) {
+                result.success(function(data) {
+                    $scope.pager = new Object();
+                    $scope.pager.items = data;
+                });
+            }
+        }
+    });
+    $scope.pager = new TvShowsPager();
+}]);
+
+moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeParams', function ($scope, TvShows, $routeParams) {
+    $scope.tvshowId = $routeParams.tvshowId;
+    TvShows.get($scope.tvshowId).success(function(data) {
+        $scope.tvshow = data;
+    });
+}]);
+
 moviesControllers.run(['$rootScope', '$location', '$timeout', '$window', 'Movie', function($rootScope, $location, $timeout, $window, Movie) {
     $rootScope.response = null;
     $rootScope.upload = function(url, name) {
@@ -29,8 +56,9 @@ moviesControllers.run(['$rootScope', '$location', '$timeout', '$window', 'Movie'
         'search',
         function() {
             if ($rootScope.search !== undefined && $rootScope.search !== '') {
+                var path = $location.$$path.split('/');
                 delete $location.$$search.search;
-                $location.path('/movies').search($location.$$search);
+                $location.path(path[1]).search($location.$$search);
             }
         }
     );

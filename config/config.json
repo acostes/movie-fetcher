@@ -1,4 +1,4 @@
 {
-    "download" : "local",
-    "upload_path": "/path/to/download"
+    "download" : "server",
+    "upload_path": "/tmp"
 }
