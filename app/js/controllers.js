@@ -28,7 +28,8 @@ moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeP
     $scope.url = $location.url();
     $(function () {
         $('#showsTab a:last').tab('show')
-    })
+    });
+
     TvShows.get($scope.tvshowId).success(function(data) {
         if (data.episodes !== undefined) {
             data.episodes.forEach(function(episode) {
