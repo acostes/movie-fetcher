@@ -52,10 +52,10 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="{{url}}#{{id}}">
-                                            Episode {{show.episode}} {{show.title}} 
+                                            Episode {{show.episode}} {{show.title}}
                                         </a>
                                         <div ng-repeat="torrent in show.torrents" class="pull-right">
-                                            <button class="btn btn-success btn-xs" ng-click="upload(torrent.url, show.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
+                                            <button ng-if="torrent.url !== null" class="btn btn-success btn-xs" ng-click="upload(torrent.url, show.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
                                         </div>
                                     </h4>
                                 </div>
