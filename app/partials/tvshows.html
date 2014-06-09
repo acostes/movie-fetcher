@@ -1,4 +1,20 @@
 <div class="container-fluid">
+    <div class="row">
+        <div class="pull-left col-md-6 filter">
+            <div class="col-md-4 col-xs-4 form-inline">
+                <b>Genre</b>
+                <select id="genre" class="form-control input-sm" ng-model="genre" ng-change="resetPage()" ng-init="genre=genres[0]" ng-options="genre for genre in genres">
+                </select>
+            </div>
+
+            <div class="col-md-6 col-xs-6 form-inline">
+                <b>Status</b>
+                <select id="status" class="form-control input-sm" ng-model="status" ng-change="resetPage()" ng-init="status=statuses[0]" ng-options="status for status in statuses">
+                </select>
+            </div>
+        </div>
+    </div>
+
     <div infinite-scroll='pager.nextPage()' infinite-scroll-disabled='pager.busy' infinite-scroll-distance='1'>
         <div ng-repeat="tvshow in pager.items" class="row-fluid">
             <div class="col-lg-3 col-md-4 col-sm-5">

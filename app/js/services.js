@@ -4,10 +4,12 @@ var moviesServices = angular.module('moviesServices', []);
 var tvShowsServices = angular.module('tvShowsServices', []);
 
 tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', function(TvShows, $http, $timeout) {
-    var TvShowsPager = function() {
+    var TvShowsPager = function(status, genre) {
         this.items = [];
         this.busy = false;
         this.after = 1;
+        this.genre = genre;
+        this.status = status;
     };
 
     TvShowsPager.prototype.nextPage = function() {
@@ -19,7 +21,7 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
         }
 
         $timeout(function() {
-            TvShows.list(this.after).success(function(data) {
+            TvShows.list(this.status, this.genre, this.after).success(function(data) {
                 for (var i = 0; i < data.length; i++) {
                     this.items.push(data[i]);
                 }
@@ -41,13 +43,49 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     var API_DETAIL          = 'http://download.hirua.net/api/show/';
     var API_LAST_UPDATED    = 'http://download.hirua.net/api/shows/last_updated';
     var API_SEARCH          = 'http://download.hirua.net/api/shows/search/';
+    var genres = [
+        'All',
+        'Comedy',
+        'News',
+        'Talk Show',
+        'Drama',
+        'Western',
+        'Family',
+        'Romance',
+        'Action',
+        'Science Fiction',
+        'Thriller',
+        'Adventure',
+        'Fantasy',
+        'Horror',
+        'Crime',
+    ];
+
+    var statuses = [
+        'All',
+        'Continuing',
+        'Ended',
+    ];
 
     return {
-        list : function(page) {
+        list : function(status, genre, page) {
             var query = '';
             if (page !== undefined && page !== 1) {
                 query += '/' + page;
             }
+
+            if (status !== 'All' && status !== undefined) {
+                query += '?status=' + status;
+            }
+
+            if (genre !== 'All' && genre !== undefined) {
+                var param = '?';
+                if (query.indexOf('?') > -1) {
+                    param = '&';
+                }
+                query += param + 'genres=' + genre;
+            }
+
             return $http.get(API_LIST + query, {cache: true});
         },
 
@@ -61,6 +99,14 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
 
         search : function(keyword) {
             return $http.get(API_SEARCH + keyword, {cache: true});
+        },
+
+        getGenres : function() {
+            return genres;
+        },
+
+        getStatuses : function() {
+            return statuses;
         }
     };
 }]);
