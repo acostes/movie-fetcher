@@ -13,7 +13,13 @@ moviesFilters.filter('rate', function () {
     };
 
     return function(startCount) {
-        var count = Math.round(startCount/2);
+        if (startCount > 10) {
+            var count = Math.round((startCount/100) * 5);
+            console.log(count);
+        } else {
+            var count = Math.round(startCount/2);
+        }
+
         if (stars[count] === undefined) return 'N/A';
         return stars[count];
     };
