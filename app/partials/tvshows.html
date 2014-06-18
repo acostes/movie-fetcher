@@ -20,7 +20,7 @@
             <div class="col-lg-3 col-md-4 col-sm-5">
                 <div class="panel panel-movies panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><a href="#/tvshows/{{tvshow.imdb_id}}">{{tvshow.title}}</a> </h3>
+                        <h3 class="panel-title"><a href="#/tvshows/{{tvshow.imdb_id}}">{{tvshow.title}}</a> <span class="pull-right logo-network {{tvshow.network_slug}}"></span></h3>
                     </div>
 
                     <div class="panel-body">
@@ -41,8 +41,6 @@
                                     <dd>{{tvshow.runtime}} min</dd>
                                     <dt class="hidden-xs">Air Day</dt>
                                     <dd>{{tvshow.air_day}}</dd>
-                                    <dt class="hidden-xs">Network</dt>
-                                    <dd>{{tvshow.network}}</dd>
                                     <dt class="hidden-xs">Country</dt>
                                     <dd>{{tvshow.country}}</dd>
                                     <dt class="hidden-xs">Seasons</dt>

@@ -15,7 +15,6 @@ moviesFilters.filter('rate', function () {
     return function(startCount) {
         if (startCount > 10) {
             var count = Math.round((startCount/100) * 5);
-            console.log(count);
         } else {
             var count = Math.round(startCount/2);
         }

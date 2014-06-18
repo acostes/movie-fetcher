@@ -17,6 +17,9 @@ moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPa
             if (result) {
                 result.success(function(data) {
                     $scope.pager = new Object();
+                    data.forEach(function(show) {
+                        show.network_slug = show.network.toLowerCase().replace(' ', '_');
+                    })
                     $scope.pager.items = data;
                 });
             }
@@ -34,6 +37,7 @@ moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeP
     });
 
     TvShows.get($scope.tvshowId).success(function(data) {
+        data.network_slug = data.network.toLowerCase().replace(' ', '_');
         if (data.episodes !== undefined) {
             data.episodes.forEach(function(episode) {
                 if (!(episode.season in $scope.episodes)) {

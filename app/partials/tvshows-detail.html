@@ -17,8 +17,6 @@
                 <dd><span ng-repeat="genre in tvshow.genres">{{genre}}, </span></dd>
                 <dt class="hidden-xs">Country</dt>
                 <dd>{{tvshow.country}}</dd>
-                <dt class="hidden-xs">Network</dt>
-                <dd>{{tvshow.network}}</dd>
                 <dt class="hidden-xs">Air Day</dt>
                 <dd>{{tvshow.air_day}}</dd>
                 <dt class="hidden-xs">Air Time</dt>
@@ -31,6 +29,8 @@
                 <dd>{{tvshow.num_seasons}}</dd>
                 <dt class="hidden-xs">Num Episodes</dt>
                 <dd>{{tvshow.episodes.length}}</dd>
+                <dt class="hidden-xs">Network</dt>
+                <dd><span class="logo-network {{tvshow.network_slug}}"></span>&nbsp;</dd>
             </dl>
 
             {{tvshow.synopsis}}

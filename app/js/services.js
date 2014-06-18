@@ -23,6 +23,7 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
         $timeout(function() {
             TvShows.list(this.status, this.genre, this.after).success(function(data) {
                 for (var i = 0; i < data.length; i++) {
+                    data[i].network_slug = data[i].network.toLowerCase().replace(' ', '_');
                     this.items.push(data[i]);
                 }
 
