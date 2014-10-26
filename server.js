@@ -6,6 +6,7 @@ var https = require('https');
 var url = require('url');
 var config = require('nconf');
 var app = express();
+var Transmission = require('transmission');
 
 config.argv()
     .env()
@@ -20,6 +21,13 @@ app.configure(function(){
     app.use(express.json());
 });
 
+var transmission = new Transmission({
+    port     : config.get('rpc-port'),
+    host     : config.get('rpc-host'),
+    username : config.get('username'),
+    password : config.get('password'),
+});
+
 app.post('/upload', function(req, res) {
     var protocol = url.parse(req.body.url).protocol.replace(':', '');
     var fileName = path.basename(req.body.url);
@@ -27,18 +35,13 @@ app.post('/upload', function(req, res) {
     var targetPath = config.get('upload_path') + '/' + fileName;
 
     if (config.get('download') == 'server') {
-        fs.exists(config.get('upload_path'), function(exists) {
-            if (exists) {
-                var file = fs.createWriteStream(targetPath);
-                var request = eval(protocol).get(req.body.url, function(response) {
-                    response.pipe(file);
-                    res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
-                }).on('error', function(e) {
-                    response = 'danger';
-                    res.json({'response': 'danger', 'message': 'An error occure during downloading ' + fileName, 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
-                });
+        transmission.addUrl(req.body.url, {
+            //options
+        }, function(err, result) {
+            if (err) {
+                res.json({'response': 'danger', 'message': err.result, 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
             } else {
-                res.json({'response': 'danger', 'message': config.get('upload_path') + ' doesn\'t exist.', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
+                res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
             }
         });
     } else {

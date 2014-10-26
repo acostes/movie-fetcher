@@ -1,4 +1,7 @@
 {
     "download" : "server",
-    "upload_path": "/tmp"
+    "rpc-host" : "localhost",
+    "rpc-port" : "9091",
+    "username" : "",
+    "password" : ""
 }
