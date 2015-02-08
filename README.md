@@ -17,10 +17,13 @@ Edit the configation file in config/config.json
     // Avalable option 'local' or 'server'
     // 'server' is when you want to download the .torrent on your server, in that case the upload_path is mandatory
     // 'local' is when you want to download the .torrent directly on you computer
-    "download" : "local",
+    "download" : "server",
 
-    // Is mandatory when you want to download the .torrent on your server, it's the path on you server
-    "upload_path": "/path/to/download"
+    // Is mandatory when you want to directly download the torrent on your server via RPC
+    "rpc-host" : "localhost",
+    "rpc-port" : "9091",
+    "username" : "username",
+    "password" : "password"
 }
 ```
 
