@@ -112,6 +112,43 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     };
 }]);
 
+moviesServices.factory('MoviesPager', ['Movie', '$http', '$timeout', function(Movie, $http, $timeout) {
+    var MoviesPager = function(sort, quality, genre, keyword) {
+        this.items = [];
+        this.busy = false;
+        this.after = 1;
+        this.genre = genre;
+        this.sort = sort;
+        this.keyword = keyword;
+        this.quality = quality;
+    };
+
+    MoviesPager.prototype.nextPage = function() {
+        if (this.busy) return;
+        this.busy = true;
+        var timeout = 1000;
+        if (this.after == 1) {
+            timeout = 0;
+        }
+
+        $timeout(function() {
+            Movie.list(this.sort, this.quality, this.genre, this.after, this.keyword).success(function(data) {
+                for (var i = 0; i < data.data.movies.length; i++) {
+                    this.items.push(data.data.movies[i]);
+                }
+
+                this.after++;
+                this.busy = false;
+                if (data.length < 1) {
+                    this.busy = true;
+                }
+
+            }.bind(this));
+        }.bind(this), timeout);
+    };
+    return MoviesPager;
+}]);
+
 moviesServices.factory('Movie', ['$http', function ($http) {
     var API_LIST        = 'https://yts.re/api/v2/list_movies.json';
     var API_DETAIL      = 'https://yts.re/api/v2/movie_details.json';
@@ -154,6 +191,14 @@ moviesServices.factory('Movie', ['$http', function ($http) {
 
     return {
         list : function(sort, quality, genre, page, keyword) {
+            if (sort === undefined) {
+                sort = sorts[0];
+            }
+
+            if (quality === undefined) {
+                quality = qualities[0];
+            }
+
             var query = '?sort_by=' + sort + '&quality=' + quality;
 
             if (keyword !== undefined && keyword !== '' && keyword.length <= 2) {

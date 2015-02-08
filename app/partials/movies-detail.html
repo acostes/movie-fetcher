@@ -6,7 +6,6 @@
             <img class="visible-xs" ng-src="{{movie.MediumCover}}" alt="{{movie.title}}" /></p>
             <p><a class="btn btn-primary" href="https://www.youtube.com/embed/{{movie.yt_trailer_code}}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3">Trailer <span class="glyphicon glyphicon-film"></span></a></p>
         </div>
-
         <div class="col-md-6 col-sm-5 col-xs-7">
             <dl class="dl-horizontal">
                 <dt class="hidden-xs">Year</dt>
@@ -29,36 +28,70 @@
                 <dd><a href="http://www.yifysubtitles.com/movie-imdb/{{movie.imdb_code}}">Download</a></dd>
                 <dt class="hidden-xs">Rate</dt>
                 <dd>{{movie.rating | rate}}</dd>
-                <dt class="hidden-xs">Seeds</dt>
-                <dd><span class="label label-success">{{movie.torrents[0].seeds}}</span></dd>
-                <dt class="hidden-xs">Peers</dt>
-                <dd><span class="label label-danger">{{movie.torrents[0].peers}}</span></dd>
+                <dt class="hidden-xs">Download</dt>
+                <dd><span ng-repeat="torrent in movie.torrents">
+                    <button ng-class="(torrent.quality == '720p') ? 'btn btn-info btn-xs' : 'btn btn-success btn-xs'" ng-click="upload(torrent.magnet, movie.title)">{{torrent.quality}} <span class="glyphicon glyphicon-cloud-download"></span></button>
+                </span></dd>
             </dl>
 
-            <span ng-repeat="torrent in movie.torrents">
-                <button ng-class="(torrent.quality == '720p') ? 'btn btn-info' : 'btn btn-success'" ng-click="upload(torrent.magnet, movie.title)">{{torrent.quality}} <span class="glyphicon glyphicon-cloud-download"></span></button>
-            </span>
+
+            <ul class="nav nav-tabs hidden-xs" id="format">
+                <li ng-class="{active:$first}" ng-repeat="(key, torrent) in movie.torrents"><a href="{{url}}#{{key}}" data-toggle="tab">{{torrent.quality}}</a></li>
+            </ul>
+
+            <div class="tab-content hidden-xs">
+                <div ng-repeat="(key, torrent) in movie.torrents" ng-class="{active:$first}" class="tab-pane show-info" id="{{key}}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                            {{torrent.size}}
+                        </div>
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                            {{torrent.resolution}}
+                        </div>
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+                            {{torrent.framerate}} FPS
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                            <span class="label label-success">{{torrent.seeds}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                            <span class="label label-danger">{{torrent.peers}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            {{torrent.download_count}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-5">
-            <h4>Description</h4>
+        <div class="col-md-7">
+            <h4><span class="label label-default">Description</span></h4>
             <p>{{movie.description_full}}</p>
 
-            <h4>Casting</h4>
+            <h4><span class="label label-default">Casting</span></h4>
             <div ng-repeat="actor in movie.actors">
                 <p><img ng-src="{{actor.small_image}}" class="img-circle" />  {{actor.name}} ({{actor.character_name}})</p>
             </div>
 
-            <h4>Director</h4>
+            <h4><span class="label label-default">Director</span></h4>
             <div ng-repeat="director in movie.directors">
                 <p><img ng-src="{{director.small_image}}" class="img-circle" /> {{director.name}}</p>
             </div>
         </div>
 
-        <div class="col-md-7 hidden-xs">
-            <h4>Screenshots</h4>
+        <div class="col-md-5 hidden-xs">
+            <h4><span class="label label-default">Screenshots</span></h4>
             <p><img ng-src="{{movie.images.medium_screenshot_image1}}" /></p>
             <p><img ng-src="{{movie.images.medium_screenshot_image2}}" /></p>
             <p><img ng-src="{{movie.images.medium_screenshot_image3}}" /></p>
