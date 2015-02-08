@@ -137,8 +137,17 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
                 var result = Movie.list($scope.sort, $scope.quality, $scope.genre, $scope.currentPage, $scope.search);
                 if (result) {
                     result.success(function(data) {
-                        $scope.totalItems = data.MovieCount;
+                        if (data.status != 'ok') {
+                            $scope.error = true;
+                        }
+                        $scope.totalItems = data.data.movie_count;
                         $scope.movies = data;
+
+                        $scope.movies.data.movies.forEach(function(movie) {
+                            movie.torrents.forEach(function(torrent) {
+                                torrent.magnet = Movie.getMagnetLink(torrent, movie.title);
+                            });
+                        });
                     });
                 }
             }, timeout);
@@ -169,12 +178,9 @@ moviesControllers.controller('MoviesListCtrl', ['$scope', '$timeout', '$routePar
 moviesControllers.controller('MoviesDetailCtrl', ['$scope', '$location', 'Movie', '$routeParams', function ($scope, $location, Movie, $routeParams) {
     $scope.movieId = $routeParams.movieId;
     Movie.get($scope.movieId).success(function(data) {
-        $scope.movie = data;
-    });
-}]);
-
-moviesControllers.controller('UpcomingCtrl', ['$scope', '$location', 'Movie', function($scope, $location, Movie) {
-    Movie.upcoming().success(function(data) {
-        $scope.movies = data;
+        $scope.movie = data.data;
+        $scope.movie.torrents.forEach(function(torrent) {
+            torrent.magnet = Movie.getMagnetLink(torrent, $scope.movie.title);
+        });
     });
 }]);

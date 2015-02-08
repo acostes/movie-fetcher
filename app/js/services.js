@@ -113,9 +113,8 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
 }]);
 
 moviesServices.factory('Movie', ['$http', function ($http) {
-    var API_LIST        = 'https://yts.re/api/list.json';
-    var API_DETAIL      = 'https://yts.re/api/movie.json';
-    var API_UPCOMING    = 'https://yts.re/api/upcoming.json';
+    var API_LIST        = 'https://yts.re/api/v2/list_movies.json';
+    var API_DETAIL      = 'https://yts.re/api/v2/movie_details.json';
     var genres = [
         'All',
         'Action',
@@ -143,30 +142,30 @@ moviesServices.factory('Movie', ['$http', function ($http) {
         '1080p',
     ];
     var sorts = [
-        'Date',
+        'Date_added',
         'Seeds',
         'Peers',
-        'Size',
-        'Alphabet',
+        'Like_count',
+        'Downloaded_count',
+        'Title',
         'Rating',
-        'Downloaded',
         'Year',
     ];
 
     return {
         list : function(sort, quality, genre, page, keyword) {
-            var query = '?sort=' + sort + '&quality=' + quality;
+            var query = '?sort_by=' + sort + '&quality=' + quality;
 
             if (keyword !== undefined && keyword !== '' && keyword.length <= 2) {
                 return null;
             }
 
             if (page !== undefined && page !== 1) {
-                query += '&set=' + page;
+                query += '&page=' + page;
             }
 
             if (keyword !== undefined && keyword.length > 2) {
-                query += '&keywords=' + keyword;
+                query += '&query_term=' + keyword;
             }
 
             if (genre !== undefined && genre !== 'All') {
@@ -176,7 +175,7 @@ moviesServices.factory('Movie', ['$http', function ($http) {
         },
 
         get : function(id) {
-            return $http.get(API_DETAIL + '?id=' + id, {cache: true});
+            return $http.get(API_DETAIL + '?movie_id=' + id + '&with_images=true&with_cast=true', {cache: true});
         },
 
         getSorts : function() {
@@ -191,8 +190,9 @@ moviesServices.factory('Movie', ['$http', function ($http) {
             return genres;
         },
 
-        upcoming : function() {
-            return $http.get(API_UPCOMING, {cache: true});
+        getMagnetLink : function(torrent, title) {
+            return 'magnet:?xt=urn:btih:' + torrent.hash + '&dn=' + title
+                + '&amp;tr=http%3A%2F%2Ftracker.yify-torrents.com%2Fannounce&amp;tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&amp;tr=udp%3A%2F%2Ftracker.publicbt.org%3A80&amp;tr=udp%3A%2F%2Ftrackr.sytes.net%3A80&amp;tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&amp;tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&amp;tr=udp%3A%2F%2Fopen.demonii.com%3A1337';
         },
 
         upload : function(url) {

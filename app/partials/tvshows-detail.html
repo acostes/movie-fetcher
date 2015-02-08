@@ -57,7 +57,7 @@
                                             Episode {{show.episode}} {{show.title}}
                                         </a>
                                         <div ng-repeat="torrent in show.torrents" class="pull-right">
-                                            <button ng-if="torrent.url !== null" ng-class="(torrent.format == 'HDTV') ? 'btn-info' : 'btn-success'" class="btn btn-xs" ng-click="upload(torrent.urlMagnet, show.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
+                                            <button ng-if="torrent.url !== null" ng-class="(torrent.format == '720p') ? 'btn-info' : 'btn-success'" class="btn btn-xs"  ng-click="upload(torrent.urlMagnet, show.title)"><span class="glyphicon glyphicon-cloud-download"></span>{{torrent.format}}</button>&nbsp;&nbsp;
                                         </div>
                                     </h4>
                                 </div>
