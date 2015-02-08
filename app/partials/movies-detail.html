@@ -48,12 +48,12 @@
 
             <h4>Casting</h4>
             <div ng-repeat="actor in movie.actors">
-                <p><img src="{{actor.small_image}}" class="img-circle" />  {{actor.name}} ({{actor.character_name}})</p>
+                <p><img ng-src="{{actor.small_image}}" class="img-circle" />  {{actor.name}} ({{actor.character_name}})</p>
             </div>
 
             <h4>Director</h4>
             <div ng-repeat="director in movie.directors">
-                <p><img src="{{director.small_image}}" class="img-circle" /> {{director.name}}</p>
+                <p><img ng-src="{{director.small_image}}" class="img-circle" /> {{director.name}}</p>
             </div>
         </div>
 
