@@ -2,14 +2,14 @@
     <div class="row">
         <div class="pull-left col-md-6 filter">
             <div class="col-md-4 col-xs-4 form-inline">
-                <b>Genre</b>
-                <select id="genre" class="form-control input-sm" ng-model="genre" ng-change="resetPage()" ng-init="genre=genres[0]" ng-options="genre for genre in genres">
+                <b>Sort</b>
+                <select id="sort" class="form-control input-sm" ng-model="sort" ng-change="resetPage()" ng-init="sort=sorts[0]" ng-options="sort for sort in sorts">
                 </select>
             </div>
 
-            <div class="col-md-6 col-xs-6 form-inline">
-                <b>Status</b>
-                <select id="status" class="form-control input-sm" ng-model="status" ng-change="resetPage()" ng-init="status=statuses[0]" ng-options="status for status in statuses">
+            <div class="col-md-4 col-xs-4 form-inline">
+                <b>Genre</b>
+                <select id="genre" class="form-control input-sm" ng-model="genre" ng-change="resetPage()" ng-init="genre=genres[0]" ng-options="genre for genre in genres">
                 </select>
             </div>
         </div>
@@ -33,6 +33,8 @@
                                 <dl class="dl-horizontal-list">
                                     <dt class="hidden-xs">Year</dt>
                                     <dd>{{tvshow.year}}</dd>
+                                    <dt class="hidden-xs">Seasons</dt>
+                                    <dd>{{tvshow.num_seasons}}</dd>
                                     <dt class="hidden-xs">Status</dt>
                                     <dd>{{tvshow.status}}</dd>
                                     <dt class="hidden-xs">Rate</dt>
@@ -43,8 +45,6 @@
                                     <dd>{{tvshow.air_day}}</dd>
                                     <dt class="hidden-xs">Country</dt>
                                     <dd>{{tvshow.country}}</dd>
-                                    <dt class="hidden-xs">Seasons</dt>
-                                    <dd>{{tvshow.num_seasons}}</dd>
                                 </dl>
                             </div>
                         </div>

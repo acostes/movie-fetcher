@@ -4,12 +4,12 @@ var moviesServices = angular.module('moviesServices', []);
 var tvShowsServices = angular.module('tvShowsServices', []);
 
 tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', function(TvShows, $http, $timeout) {
-    var TvShowsPager = function(status, genre) {
+    var TvShowsPager = function(sort, genre) {
         this.items = [];
         this.busy = false;
         this.after = 1;
         this.genre = genre;
-        this.status = status;
+        this.sort = sort;
     };
 
     TvShowsPager.prototype.nextPage = function() {
@@ -21,9 +21,12 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
         }
 
         $timeout(function() {
-            TvShows.list(this.status, this.genre, this.after).success(function(data) {
+            TvShows.list(this.sort, this.genre, this.after).success(function(data) {
                 for (var i = 0; i < data.length; i++) {
-                    data[i].network_slug = data[i].network.toLowerCase().replace(' ', '_');
+                    if (data[i].network) {
+                       data[i].network_slug = data[i].network.toLowerCase().replace(' ', '_');
+                    }
+
                     this.items.push(data[i]);
                 }
 
@@ -62,6 +65,13 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
         'Crime',
     ];
 
+    var sorts = [
+        'Updated',
+        'Rating',
+        'Name',
+        'Year',
+    ];
+
     var statuses = [
         'All',
         'Continuing',
@@ -69,14 +79,14 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     ];
 
     return {
-        list : function(status, genre, page) {
+        list : function(sort, genre, page) {
             var query = '';
-            if (page !== undefined && page !== 1) {
+            if (page !== undefined) {
                 query += '/' + page;
             }
 
-            if (status !== 'All' && status !== undefined) {
-                query += '?status=' + status;
+            if (sort !== undefined && sort !== 'Rating') {
+                query += '?sort=' + sort.toLowerCase();
             }
 
             if (genre !== 'All' && genre !== undefined) {
@@ -84,7 +94,7 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
                 if (query.indexOf('?') > -1) {
                     param = '&';
                 }
-                query += param + 'genres=' + genre;
+                query += param + 'genre=' + genre.toLowerCase();
             }
 
             return $http.get(API_LIST + query, {cache: true});
@@ -108,7 +118,13 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
 
         getStatuses : function() {
             return statuses;
+        },
+
+        getSorts : function() {
+            return sorts;
         }
+
+
     };
 }]);
 

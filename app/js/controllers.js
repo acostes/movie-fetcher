@@ -4,11 +4,11 @@ var moviesControllers = angular.module('moviesControllers', []);
 
 moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPager', function($scope, TvShows, TvShowsPager) {
     $scope.genres = TvShows.getGenres();
-    $scope.statuses = TvShows.getStatuses();
+    $scope.sorts = TvShows.getSorts();
 
-    $scope.$watch('[genre, status, search]', function(oldValue, newValue) {
+    $scope.$watch('[genre, sort, search]', function(oldValue, newValue) {
         if (($scope.search === undefined || $scope.search === '') && (oldValue[2] === '' || oldValue[2] === undefined) && (newValue[2] !== undefined || oldValue[0] !== newValue[0] || oldValue[1] !== newValue[1])) {
-            $scope.pager = new TvShowsPager($scope.status, $scope.genre);
+            $scope.pager = new TvShowsPager($scope.sort, $scope.genre);
             $scope.pager.nextPage();
         }
 
@@ -25,7 +25,7 @@ moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPa
             }
         }
     }, true);
-    $scope.pager = new TvShowsPager($scope.status, $scope.genre);
+    $scope.pager = new TvShowsPager($scope.sorts[0], $scope.genre);
 }]);
 
 moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeParams', '$location', function ($scope, TvShows, $routeParams, $location) {
