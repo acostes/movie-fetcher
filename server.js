@@ -50,7 +50,7 @@ app.post('/upload', function(req, res) {
     }
 });
 
-app.get('/api/movie/list', function(req, res) {
+app.get('/movie/list', function(req, res) {
     var query = req._parsedOriginalUrl.search
     request('https://yts.re/api/v2/list_movies.json' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -59,7 +59,7 @@ app.get('/api/movie/list', function(req, res) {
     })
 });
 
-app.get('/api/movie/info', function(req, res) {
+app.get('/movie/info', function(req, res) {
     var query = req._parsedOriginalUrl.search
     request('https://yts.re/api/v2/movie_details.json' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
