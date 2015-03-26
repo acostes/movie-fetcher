@@ -7,6 +7,7 @@ var url = require('url');
 var config = require('nconf');
 var app = express();
 var Transmission = require('transmission');
+var request = require('request');
 
 config.argv()
     .env()
@@ -47,6 +48,24 @@ app.post('/upload', function(req, res) {
     } else {
         res.json({'response': 'success', 'message': 'Download ' + movieName + ' successfull', 'download' : config.get('download'), 'url': req.body.url, 'name': fileName});
     }
+});
+
+app.get('/api/movie/list', function(req, res) {
+    var query = req._parsedOriginalUrl.search
+    request('https://yts.re/api/v2/list_movies.json' + query, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+    })
+});
+
+app.get('/api/movie/info', function(req, res) {
+    var query = req._parsedOriginalUrl.search
+    request('https://yts.re/api/v2/movie_details.json' + query, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+    })
 });
 
 // Start server

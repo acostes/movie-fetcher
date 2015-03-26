@@ -166,8 +166,8 @@ moviesServices.factory('MoviesPager', ['Movie', '$http', '$timeout', function(Mo
 }]);
 
 moviesServices.factory('Movie', ['$http', function ($http) {
-    var API_LIST        = 'https://yts.re/api/v2/list_movies.json';
-    var API_DETAIL      = 'https://yts.re/api/v2/movie_details.json';
+    var API_LIST        = 'http://download.hirua.net/api/movie/list';
+    var API_DETAIL      = 'http://download.hirua.net/api/movie/info';
     var genres = [
         'All',
         'Action',
