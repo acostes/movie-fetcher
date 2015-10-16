@@ -1,6 +1,6 @@
 <div class="container">
     <div class="header">
-        <img class="hidden-xs center-block img-rounded" ng-src="{{tvshow.images.banner}}" alt="{{tvshow.title}}" />
+        <img class="hidden-xs center-block img-rounded banner" ng-src="{{tvshow.images.fanart}}" alt="{{tvshow.title}}" />
         <h3>{{tvshow.title}}</h3>
     </div>
 
@@ -17,10 +17,6 @@
                 <dd><span ng-repeat="genre in tvshow.genres">{{genre}}, </span></dd>
                 <dt class="hidden-xs">Country</dt>
                 <dd>{{tvshow.country}}</dd>
-                <dt class="hidden-xs">Air Day</dt>
-                <dd>{{tvshow.air_day}}</dd>
-                <dt class="hidden-xs">Air Time</dt>
-                <dd>{{tvshow.air_time}}</dd>
                 <dt class="hidden-xs">Status</dt>
                 <dd>{{tvshow.status}}</dd>
                 <dt class="hidden-xs">Rate</dt>
@@ -32,7 +28,7 @@
                 <dt class="hidden-xs">Network</dt>
                 <dd><span class="logo-network {{tvshow.network_slug}}"></span>&nbsp;</dd>
             </dl>
-
+            <br />
             {{tvshow.synopsis}}
         </div>
     </div>

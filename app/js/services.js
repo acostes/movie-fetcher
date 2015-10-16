@@ -45,37 +45,13 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
 tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     var API_LIST            = 'http://download.hirua.net/api/shows';
     var API_DETAIL          = 'http://download.hirua.net/api/show/';
-    var API_LAST_UPDATED    = 'http://download.hirua.net/api/shows/last_updated';
     var API_SEARCH          = 'http://download.hirua.net/api/shows/search/';
-    var genres = [
-        'All',
-        'Comedy',
-        'News',
-        'Talk Show',
-        'Drama',
-        'Western',
-        'Family',
-        'Romance',
-        'Action',
-        'Science Fiction',
-        'Thriller',
-        'Adventure',
-        'Fantasy',
-        'Horror',
-        'Crime',
-    ];
 
     var sorts = [
         'Updated',
         'Rating',
         'Name',
         'Year',
-    ];
-
-    var statuses = [
-        'All',
-        'Continuing',
-        'Ended',
     ];
 
     return {
@@ -88,15 +64,6 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
             if (sort !== undefined && sort !== 'Rating') {
                 query += '?sort=' + sort.toLowerCase();
             }
-
-            if (genre !== 'All' && genre !== undefined) {
-                var param = '?';
-                if (query.indexOf('?') > -1) {
-                    param = '&';
-                }
-                query += param + 'genre=' + genre.toLowerCase();
-            }
-
             return $http.get(API_LIST + query, {cache: true});
         },
 
@@ -104,27 +71,13 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
             return $http.get(API_DETAIL + id, {cache: true});
         },
 
-        lastUpdated : function(page) {
-            return $http.get(API_LAST_UPDATED, {cache: true});
-        },
-
         search : function(keyword) {
             return $http.get(API_SEARCH + keyword, {cache: true});
-        },
-
-        getGenres : function() {
-            return genres;
-        },
-
-        getStatuses : function() {
-            return statuses;
         },
 
         getSorts : function() {
             return sorts;
         }
-
-
     };
 }]);
 

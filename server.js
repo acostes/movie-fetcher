@@ -59,6 +59,25 @@ app.get('/movie/list', function(req, res) {
     })
 });
 
+app.get('/shows/*', function(req, res) {
+    var query = req._parsedOriginalUrl.path
+    request('http://eztvapi.re' + query, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+    })
+});
+
+
+app.get('/show/*', function(req, res) {
+    var query = req._parsedOriginalUrl.path
+    request('http://eztvapi.re' + query, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+    })
+});
+
 app.get('/movie/info', function(req, res) {
     var query = req._parsedOriginalUrl.search
     request('https://yts.re/api/v2/movie_details.json' + query, function (error, response, body) {

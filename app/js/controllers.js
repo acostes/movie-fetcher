@@ -3,7 +3,6 @@
 var moviesControllers = angular.module('moviesControllers', []);
 
 moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPager', function($scope, TvShows, TvShowsPager) {
-    $scope.genres = TvShows.getGenres();
     $scope.sorts = TvShows.getSorts();
 
     $scope.$watch('[genre, sort, search]', function(oldValue, newValue) {
