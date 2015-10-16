@@ -1,7 +1,7 @@
 Movie Fetcher
 ==============
 
-Small application for private usage only that list all the available torrent movies on [YTS](http://yts.re/). Data are provided by [YTS API](http://yts.re/api).
+Small application for private usage only that list all the available torrent movies on [YTS](http://yts.re/). Data are provided by [YTS API](http://yts.re/api). This also list TV Shows torrent based on [Popcorn Time API](https://github.com/popcorn-official/popcorn-api).
 
 ## Requirement
 
