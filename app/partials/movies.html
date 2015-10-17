@@ -29,7 +29,11 @@
             <div class="col-lg-3 col-md-4 col-sm-5">
                 <div class="panel panel-movies panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><a href="#/movies/{{movie.id}}">{{movie.title}}</a> <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="upload(movie.torrents[0].magnet, movie.title)"><span class="glyphicon glyphicon-cloud-download"></span></button></span></h3>
+                        <h3 class="panel-title"><a href="#/movies/{{movie.id}}">{{movie.title}}</a> <span class="pull-right">
+                        <span ng-repeat="torrent in movie.torrents">
+                            <button ng-class="(torrent.quality == '720p') ? 'btn btn-info btn-xs' : 'btn btn-success btn-xs'" ng-click="upload(torrent.magnet, movie.title)"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                        </span>
+                        </span></h3>
                     </div>
 
                     <div class="panel-body">

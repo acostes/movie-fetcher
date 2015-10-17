@@ -43,9 +43,9 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
 }]);
 
 tvShowsServices.factory('TvShows', ['$http',  function ($http) {
-    var API_LIST            = 'http://download.hirua.net/api/shows';
-    var API_DETAIL          = 'http://download.hirua.net/api/show/';
-    var API_SEARCH          = 'http://download.hirua.net/api/shows/search/';
+    var API_LIST            = '/api/shows';
+    var API_DETAIL          = '/api/show/';
+    var API_SEARCH          = '/api/shows/search/';
 
     var sorts = [
         'Updated',
@@ -103,7 +103,11 @@ moviesServices.factory('MoviesPager', ['Movie', '$http', '$timeout', function(Mo
         $timeout(function() {
             Movie.list(this.sort, this.quality, this.genre, this.after, this.keyword).success(function(data) {
                 for (var i = 0; i < data.data.movies.length; i++) {
-                    this.items.push(data.data.movies[i]);
+                    var movie = data.data.movies[i];
+                    movie.torrents.forEach(function(torrent) {
+                        torrent.magnet = Movie.getMagnetLink(torrent, movie.title);
+                    });
+                    this.items.push(movie);
                 }
 
                 this.after++;
@@ -119,8 +123,8 @@ moviesServices.factory('MoviesPager', ['Movie', '$http', '$timeout', function(Mo
 }]);
 
 moviesServices.factory('Movie', ['$http', function ($http) {
-    var API_LIST        = 'http://download.hirua.net/movie/list';
-    var API_DETAIL      = 'http://download.hirua.net/movie/info';
+    var API_LIST        = '/api/movie/list';
+    var API_DETAIL      = '/api/movie/info';
     var genres = [
         'All',
         'Action',

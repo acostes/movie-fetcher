@@ -50,8 +50,10 @@ app.post('/upload', function(req, res) {
     }
 });
 
-app.get('/shows/*', function(req, res) {
+app.get('/api/shows/*', function(req, res) {
     var query = req._parsedOriginalUrl.path
+    query = '/' + query.split('/').slice(2).join('/');
+
     request('http://eztvapi.re' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
@@ -60,8 +62,10 @@ app.get('/shows/*', function(req, res) {
 });
 
 
-app.get('/show/*', function(req, res) {
+app.get('/api/show/*', function(req, res) {
     var query = req._parsedOriginalUrl.path
+    query = '/' + query.split('/').slice(2).join('/');
+
     request('http://eztvapi.re' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
@@ -69,7 +73,7 @@ app.get('/show/*', function(req, res) {
     })
 });
 
-app.get('/movie/list', function(req, res) {
+app.get('/api/movie/list', function(req, res) {
     var query = req._parsedOriginalUrl.search
     request('https://yts.to/api/v2/list_movies.json' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -78,7 +82,7 @@ app.get('/movie/list', function(req, res) {
     })
 });
 
-app.get('/movie/info', function(req, res) {
+app.get('/api/movie/info', function(req, res) {
     var query = req._parsedOriginalUrl.search
     request('https://yts.to/api/v2/movie_details.json' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
