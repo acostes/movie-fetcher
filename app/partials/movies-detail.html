@@ -2,7 +2,7 @@
     <h3>{{movie.title}}</h3>
     <div class="row movie-info">
         <div class="col-md-4 col-sm-6 col-xs-5">
-            <p><img class="hidden-xs" ng-src="{{movie.images.medium_cover_image}}" alt="{{movie.title}}" />
+            <p><img class="hidden-xs" ng-src="{{movie.medium_cover_image}}" alt="{{movie.title}}" />
             <img class="visible-xs" ng-src="{{movie.MediumCover}}" alt="{{movie.title}}" /></p>
             <p><a class="btn btn-primary" href="https://www.youtube.com/embed/{{movie.yt_trailer_code}}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3">Trailer <span class="glyphicon glyphicon-film"></span></a></p>
         </div>
@@ -16,10 +16,6 @@
                 <dd>{{movie.torrents[0].size}}</dd>
                 <dt class="hidden-xs">Quality</dt>
                 <dd>{{movie.torrents[0].quality}}</dd>
-                <dt class="hidden-xs">Resolution</dt>
-                <dd>{{movie.torrents[0].resolution}}</dd>
-                <dt class="hidden-xs">FrameRate</dt>
-                <dd>{{movie.torrents[0].framerate}}</dd>
                 <dt class="hidden-xs">Language</dt>
                 <dd>{{movie.language}}</dd>
                 <dt class="hidden-xs">Runtime</dt>
@@ -46,14 +42,6 @@
                             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                             {{torrent.size}}
                         </div>
-                        <div class="col-md-4">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                            {{torrent.resolution}}
-                        </div>
-                        <div class="col-md-4">
-                            <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-                            {{torrent.framerate}} FPS
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -63,10 +51,6 @@
                         <div class="col-md-4">
                             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                             <span class="label label-danger">{{torrent.peers}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            {{torrent.download_count}}
                         </div>
                     </div>
                 </div>
@@ -80,21 +64,16 @@
             <p>{{movie.description_full}}</p>
 
             <h4><span class="label label-default">Casting</span></h4>
-            <div ng-repeat="actor in movie.actors">
-                <p><img ng-src="{{actor.small_image}}" class="img-circle" />  {{actor.name}} ({{actor.character_name}})</p>
-            </div>
-
-            <h4><span class="label label-default">Director</span></h4>
-            <div ng-repeat="director in movie.directors">
-                <p><img ng-src="{{director.small_image}}" class="img-circle" /> {{director.name}}</p>
+            <div ng-repeat="actor in movie.cast">
+                <p>{{actor.name}} ({{actor.character}})</p>
             </div>
         </div>
 
         <div class="col-md-5 hidden-xs">
             <h4><span class="label label-default">Screenshots</span></h4>
-            <p><img ng-src="{{movie.images.medium_screenshot_image1}}" /></p>
-            <p><img ng-src="{{movie.images.medium_screenshot_image2}}" /></p>
-            <p><img ng-src="{{movie.images.medium_screenshot_image3}}" /></p>
+            <p><img ng-src="{{movie.medium_screenshot1}}" /></p>
+            <p><img ng-src="{{movie.medium_screenshot2}}" /></p>
+            <p><img ng-src="{{movie.medium_screenshot3}}" /></p>
         </div>
     </div>
 </div>

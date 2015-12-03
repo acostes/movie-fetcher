@@ -117,7 +117,7 @@ moviesControllers.controller('MoviesDetailCtrl', ['$scope', '$location', 'Movie'
     $scope.movieId = $routeParams.movieId;
     $scope.url = $location.url();
     Movie.get($scope.movieId).success(function(data) {
-        $scope.movie = data.data;
+        $scope.movie = data.data.movie;
         $scope.movie.torrents.forEach(function(torrent) {
             torrent.magnet = Movie.getMagnetLink(torrent, $scope.movie.title);
         });

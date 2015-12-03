@@ -75,7 +75,7 @@ app.get('/api/show/*', function(req, res) {
 
 app.get('/api/movie/list', function(req, res) {
     var query = req._parsedOriginalUrl.search
-    request('https://yts.to/api/v2/list_movies.json' + query, function (error, response, body) {
+    request('https://yts.ag/api/v2/list_movies.json' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
         }
@@ -84,7 +84,7 @@ app.get('/api/movie/list', function(req, res) {
 
 app.get('/api/movie/info', function(req, res) {
     var query = req._parsedOriginalUrl.search
-    request('https://yts.to/api/v2/movie_details.json' + query, function (error, response, body) {
+    request('https://yts.ag/api/v2/movie_details.json' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
         }
