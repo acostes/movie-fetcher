@@ -54,7 +54,7 @@ app.get('/api/shows/*', function(req, res) {
     var query = req._parsedOriginalUrl.path
     query = '/' + query.split('/').slice(2).join('/');
 
-    request('http://eztvapi.re' + query, function (error, response, body) {
+    request('https://popcorntime.ws/api/eztv/' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
         }
@@ -66,7 +66,7 @@ app.get('/api/show/*', function(req, res) {
     var query = req._parsedOriginalUrl.path
     query = '/' + query.split('/').slice(2).join('/');
 
-    request('http://eztvapi.re' + query, function (error, response, body) {
+    request('https://popcorntime.ws/api/eztv/' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
         }
