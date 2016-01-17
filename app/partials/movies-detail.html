@@ -65,15 +65,15 @@
 
             <h4><span class="label label-default">Casting</span></h4>
             <div ng-repeat="actor in movie.cast">
-                <p>{{actor.name}} ({{actor.character}})</p>
+                <p><img ng-src="{{actor.url_small_image}}" class="img-circle" /> <a href="http://www.imdb.com/name/nm{{actor.imdb_code}}" target="_blank">{{actor.name}}</a> ({{actor.character_name}})</p>
             </div>
         </div>
 
         <div class="col-md-5 hidden-xs">
             <h4><span class="label label-default">Screenshots</span></h4>
-            <p><img ng-src="{{movie.medium_screenshot1}}" /></p>
-            <p><img ng-src="{{movie.medium_screenshot2}}" /></p>
-            <p><img ng-src="{{movie.medium_screenshot3}}" /></p>
+            <p><img ng-src="{{movie.medium_screenshot_image1}}" /></p>
+            <p><img ng-src="{{movie.medium_screenshot_image2}}" /></p>
+            <p><img ng-src="{{movie.medium_screenshot_image3}}" /></p>
         </div>
     </div>
 </div>
