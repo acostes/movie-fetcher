@@ -4,12 +4,13 @@ var moviesServices = angular.module('moviesServices', []);
 var tvShowsServices = angular.module('tvShowsServices', []);
 
 tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', function(TvShows, $http, $timeout) {
-    var TvShowsPager = function(sort, genre) {
+    var TvShowsPager = function(sort, genre, search) {
         this.items = [];
         this.busy = false;
         this.after = 1;
         this.genre = genre;
         this.sort = sort;
+        this.search = search;
     };
 
     TvShowsPager.prototype.nextPage = function() {
@@ -21,7 +22,7 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
         }
 
         $timeout(function() {
-            TvShows.list(this.sort, this.genre, this.after).success(function(data) {
+            TvShows.list(this.sort, this.genre, this.search, this.after).success(function(data) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].network) {
                        data[i].network_slug = data[i].network.toLowerCase().replace(' ', '_');
@@ -45,7 +46,6 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
 tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     var API_LIST            = '/api/shows';
     var API_DETAIL          = '/api/show/';
-    var API_SEARCH          = '/api/shows/search/';
 
     var sorts = [
         'Updated',
@@ -55,7 +55,7 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
     ];
 
     return {
-        list : function(sort, genre, page) {
+        list : function(sort, genre, search, page) {
             var query = '';
             if (page !== undefined) {
                 query += '/' + page;
@@ -64,15 +64,20 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
             if (sort !== undefined && sort !== 'Rating') {
                 query += '?sort=' + sort.toLowerCase();
             }
+
+            if (search !== undefined && search !== '') {
+                if (query.indexOf('?') === undefined || query.indexOf('?') === -1) {
+                    query += '?keywords=' + search;
+                } else {
+                    query += '&keywords=' + search;
+                }
+            }
+
             return $http.get(API_LIST + query, {cache: true});
         },
 
         get : function(id) {
             return $http.get(API_DETAIL + id, {cache: true});
-        },
-
-        search : function(keyword) {
-            return $http.get(API_SEARCH + keyword, {cache: true});
         },
 
         getSorts : function() {

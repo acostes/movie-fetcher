@@ -6,25 +6,11 @@ moviesControllers.controller('TvShowsListCtrl', ['$scope', 'TvShows', 'TvShowsPa
     $scope.sorts = TvShows.getSorts();
 
     $scope.$watch('[genre, sort, search]', function(oldValue, newValue) {
-        if (($scope.search === undefined || $scope.search === '') && (oldValue[2] === '' || oldValue[2] === undefined) && (newValue[2] !== undefined || oldValue[0] !== newValue[0] || oldValue[1] !== newValue[1])) {
-            $scope.pager = new TvShowsPager($scope.sort, $scope.genre);
-            $scope.pager.nextPage();
-        }
-
-        if ($scope.search !== undefined && $scope.search !== '') {
-            var result = TvShows.search($scope.search);
-            if (result) {
-                result.success(function(data) {
-                    $scope.pager = new Object();
-                    data.forEach(function(show) {
-                        show.network_slug = show.network.toLowerCase().replace(' ', '_');
-                    })
-                    $scope.pager.items = data;
-                });
-            }
-        }
+        $scope.pager = new TvShowsPager($scope.sort, $scope.genre, $scope.search);
+        $scope.pager.nextPage();
     }, true);
-    $scope.pager = new TvShowsPager($scope.sorts[0], $scope.genre);
+
+    $scope.pager = new TvShowsPager($scope.sorts[0], $scope.genre, $scope.search);
 }]);
 
 moviesControllers.controller('TvShowsDetailCtrl', ['$scope', 'TvShows', '$routeParams', '$location', function ($scope, TvShows, $routeParams, $location) {
