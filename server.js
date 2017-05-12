@@ -50,23 +50,10 @@ app.post('/upload', function(req, res) {
     }
 });
 
-app.get('/api/shows/*', function(req, res) {
+app.get('/api/tv/*', function(req, res) {
     var query = req._parsedOriginalUrl.path
-    query = '/' + query.split('/').slice(2).join('/');
-
-    request('https://popcorntime.ws/api/eztv/' + query, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.send(body);
-        }
-    })
-});
-
-
-app.get('/api/show/*', function(req, res) {
-    var query = req._parsedOriginalUrl.path
-    query = '/' + query.split('/').slice(2).join('/');
-
-    request('https://popcorntime.ws/api/eztv/' + query, function (error, response, body) {
+    query = '/' + query.split('/').slice(3).join('/');
+    request('https://datasearch.herokuapp.com' + query, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body);
         }

@@ -11,5 +11,8 @@
         "nconf": "0.6.x",
         "transmission": "0.4.x",
         "request": "2.x"
+    },
+    "scripts": {
+        "start": "node ./server.js"
     }
 }

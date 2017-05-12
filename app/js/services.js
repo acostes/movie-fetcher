@@ -44,11 +44,12 @@ tvShowsServices.factory('TvShowsPager', ['TvShows', '$http', '$timeout', functio
 }]);
 
 tvShowsServices.factory('TvShows', ['$http',  function ($http) {
-    var API_LIST            = '/api/shows';
-    var API_DETAIL          = '/api/show/';
+    var API_LIST            = '/api/tv/shows';
+    var API_DETAIL          = '/api/tv/show';
 
     var sorts = [
         'Updated',
+        'Trending',
         'Rating',
         'Name',
         'Year',
@@ -77,7 +78,7 @@ tvShowsServices.factory('TvShows', ['$http',  function ($http) {
         },
 
         get : function(id) {
-            return $http.get(API_DETAIL + id, {cache: true});
+            return $http.get(API_DETAIL + '/' + id, {cache: true});
         },
 
         getSorts : function() {
